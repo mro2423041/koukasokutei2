@@ -1,0 +1,21 @@
+{% extends 'game/base.html' %}
+
+{% block title %}{{ card.name }}{% endblock %}
+
+{% block content %}
+    <h1 class="my-4">{{ card.name }}</h1>
+    {% if card.image %}
+        <img src="{{ card.image.url }}" class="img-fluid" alt="{{ card.name }}">
+    {% endif %}
+    <p><strong>Elixir Cost:</strong> {{ card.elixir_cost }}</p>
+    <p><strong>Description:</strong> {{ card.description }}</p>
+    <p><strong>Hitpoints:</strong> {{ card.hitpoints }}</p>
+    <p><strong>Damage:</strong> {{ card.damage }}</p>
+    <a href="{% url 'add_comment_to_card' card.pk %}" class="btn btn-primary">Add Comment</a>
+    <h2>Comments</h2>
+    <ul>
+        {% for comment in card.comments.all %}
+            <li><strong>{{ comment.author }}</strong>: {{ comment.text }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
